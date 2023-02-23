@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const Register = () => {
   const [ email, setEmail ] = useState('');
-
+  
   const handleSubmit = async (e) => {
     //prevent browser from reload
     
@@ -35,8 +35,10 @@ const Register = () => {
         className='form-control' 
         value={email} 
         onChange={(e) => setEmail(e.target.value)}
+        placeholder='Enter your email'
         autoFocus
       />
+      <br />
       <button type='submit' className='btn btn-raised'>
         Register 
       </button> 
