@@ -17,3 +17,5 @@ npm i firebase@9.6.7
 https://firebase.google.com/
 
 npm i react-toastify
+
+#npm i redux react-redux redux-devtools-extension

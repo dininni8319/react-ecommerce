@@ -7,19 +7,26 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     //prevent browser from reload
+    
     e.preventDefault();
+
     const config = {
       url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
       handleCodeInApp: true,
     }
 
-    await auth.sendSignInLinkToEmail(email, config)
-    toast.success(
-      `Email is sent to ${email}. Click the link to complete the registration.`
-    )
-    //save the email in the local storage
-    window.localStorage.setItem('emailForRegistration', email);
-    setEmail('');
+    try {
+      await auth.sendSignInLinkToEmail(email, config)
+      toast.success(
+        `Email is sent to ${email}. Click the link to complete the registration.`
+      )
+      //save the email in the local storage
+      window.localStorage.setItem('emailForRegistration', email);
+      setEmail('');
+      
+    } catch (error) {
+      toast.error(error.message)
+    }
   };
 
   const registerForm = () => <form onSubmit={handleSubmit}>
