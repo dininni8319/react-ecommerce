@@ -40,7 +40,7 @@ const RegisterComplete = ({ history }) => {
         await user.updatePassword(password);
         //token to access our backend 
         const idTokenResult = await user.getIdTokenResult();
-        console.log('user', user, 'idTonenResult', idTokenResult);
+        // console.log('user', user, 'idTonenResult', idTokenResult);
         history.push('/');
       }
     } catch (error) {

@@ -18,23 +18,23 @@ const {
 } = Menu;
 
 const Header = () => {
-   const [ current, setCurrent ] = useState('home');
-   let dispatch = useDispatch();
-   let history = useHistory();
-   let { user } = useSelector((state) => ({...state}))
-   const handleClick = (e) => {
+  const [ current, setCurrent ] = useState('home');
+  let dispatch = useDispatch();
+  let history = useHistory();
+  let { user } = useSelector((state) => ({...state}))
+  const handleClick = (e) => {
     setCurrent(e.key)
-   }
+  }
 
-   const logout = () => {
-     firebase.auth().signOut();
-     dispatch({
+  const logout = () => {
+    firebase.auth().signOut();
+    dispatch({
        type: "LOGOUT",
        payload: null,
      })
      history.push('/login')
-   }
-   return (
+  }
+  return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<AppstoreOutlined />}>
         <Link to='/'>Home</Link>
@@ -58,8 +58,8 @@ const Header = () => {
         <Item icon={<LogoutOutlined />} onClick={logout}>Logout</Item>
       </SubMenu>
      )}  
-  </Menu>
-   );
+    </Menu>
+  );
 }
 
 export default Header;

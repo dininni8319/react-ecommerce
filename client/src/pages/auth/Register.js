@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
-const Register = () => {
+const Register = ({ history }) => {
   const [ email, setEmail ] = useState('');
   
+  const { user } = useSelector(state => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history.push('/');
+  },[user])
+
   const handleSubmit = async (e) => {
     //prevent browser from reload
-    
     e.preventDefault();
 
     const config = {
@@ -20,7 +26,7 @@ const Register = () => {
       toast.success(
         `Email is sent to ${email}. Click the link to complete the registration.`
       )
-      //save the email in the local storage
+      //save the email in the localStorage
       window.localStorage.setItem('emailForRegistration', email);
       setEmail('');
       
