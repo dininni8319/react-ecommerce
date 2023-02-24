@@ -19,3 +19,13 @@ https://firebase.google.com/
 npm i react-toastify
 
 #npm i redux react-redux redux-devtools-extension
+
+Backend
+-initialize npm package with commant
+#npm init -y 
+#npm i express body-parser mongoose cors morgan express-jwt firebase-admin jsonwebtoken nodemon dotenv
+
+<!-- mongoose
+  .connect(process.env.DATABASE, {})
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.log("DB Error => ", err)); -->
