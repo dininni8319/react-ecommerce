@@ -25,6 +25,8 @@ Backend
 #npm init -y 
 #npm i express body-parser mongoose cors morgan express-jwt firebase-admin jsonwebtoken nodemon dotenv
 
+Axios installation
+#npm i axios
 <!-- mongoose
   .connect(process.env.DATABASE, {})
   .then(() => console.log("DB connected"))
