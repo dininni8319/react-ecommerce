@@ -60,9 +60,8 @@ const RegisterComplete = ({ history }) => {
              },
            });
         })
-
         .catch();
-        // console.log('user', user, 'idTonenResult', idTokenResult);
+
         history.push('/');
       }
     } catch (error) {

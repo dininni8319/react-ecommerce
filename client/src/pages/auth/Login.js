@@ -7,13 +7,20 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { createOrUpdateUser } from '../../functions/auth';
 
-
 const Login = ({ history }) => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ loading, setLoading ] = useState(false);
   let dispatch = useDispatch();
   const { user } = useSelector(state => ({ ...state }));
+
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === 'admin') {
+      history.push('/admin/dashboard');
+    } else {
+      history.push('/user/history');
+    }
+  };
 
   useEffect(() => {
     if (user && user.token) history.push('/');
@@ -23,29 +30,29 @@ const Login = ({ history }) => {
     //prevent browser from reload
     e.preventDefault();
     setLoading(true);
-
-   try {
-     const result = await auth.signInWithEmailAndPassword(email,password);
-     const { user } = result;
-     const idTokenResult = await user.getIdTokenResult();
+    
+    try {
+      const result = await auth.signInWithEmailAndPassword(email,password);
+      const { user } = result;
+      const idTokenResult = await user.getIdTokenResult();
      
-     createOrUpdateUser(idTokenResult.token)
-     .then((res) => { 
+      createOrUpdateUser(idTokenResult.token)
+        .then((res) => { 
        
-        dispatch({
-          type: "LOGGED_IN_USER",
-          payload: {
-            name: res.data.name,
-            email: res.data.email,
-            token: idTokenResult.token,
-            role: res.data.role,
-            _id: res.data._id,
-          },
-        });
-     })
-     .catch();
+          dispatch({
+            type: "LOGGED_IN_USER",
+            payload: {
+              name: res.data.name,
+              email: res.data.email,
+              token: idTokenResult.token,
+              role: res.data.role,
+              _id: res.data._id,
+            },
+          });
 
-      history.push('/');
+          roleBasedRedirect(res);
+        })
+        .catch(err => console.log(err));
     } catch (error) {
      toast.error(error.message);
      setLoading(false);
@@ -58,21 +65,21 @@ const Login = ({ history }) => {
         const { user } = result;
         const idTokenResult = await user.getIdTokenResult();
         createOrUpdateUser(idTokenResult.token)
-        .then((res) => { 
-          
-           dispatch({
-             type: "LOGGED_IN_USER",
-             payload: {
-               name: res.data.name,
-               email: res.data.email,
-               token: idTokenResult.token,
-               role: res.data.role,
-               _id: res.data._id,
-             },
-           });
-        })
-        .catch();
-        history.push('/');
+          .then((res) => { 
+            dispatch({
+              type: "LOGGED_IN_USER",
+              payload: {
+                name: res.data.name,
+                email: res.data.email,
+                token: idTokenResult.token,
+                role: res.data.role,
+                _id: res.data._id,
+              },
+            });
+
+            roleBasedRedirect(res);
+          })
+
       })
       .catch((err) => {
         console.log(err);
