@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { currentUser } from '../../functions/auth';
+// import { currentUser } from '../../functions/auth';
 
 const LoadingToRedirect = () => {
   const [ count, setCount ] = useState(5);
@@ -14,7 +14,7 @@ const LoadingToRedirect = () => {
     count === 0 && history.push('/');
 
     return () => clearInterval(interval);
-  }, [count]);
+  }, [count, history]);
 
   
   return (  
