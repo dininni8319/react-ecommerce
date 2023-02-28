@@ -32,7 +32,7 @@ exports.update = async (req, res) => {
     res.json(update);
     
   } catch (err) {
-    res.status(400).send("Create update failed")
+    res.status(400).send("Category update failed")
   }
 };
 
@@ -41,6 +41,6 @@ exports.remove = async (req, res) => {
     const deleted = await Category.findOneAndDelete({slug: req.params.slug });
     res.json(deleted);
   } catch (err) {
-    res.status(400).send("Delete failed");
+    res.status(400).send("Category delete failed");
   }
 };
