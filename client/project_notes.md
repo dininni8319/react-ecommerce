@@ -33,4 +33,10 @@ Axios installation
   .catch((err) => console.log("DB Error => ", err)); -->
 
 Help to create slugs
-npm i slugify
+#npm i slugify
+
+Package cloudinary
+#npm i cloudinary
+
+Package for image resize
+#npm i react-image-file-resizer
