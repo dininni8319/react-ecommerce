@@ -9,6 +9,7 @@ import {
 } from '../../../functions/category';
 import { Link } from 'react-router-dom';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import CategoryForm from '../../../components/forms/CategoryForm';
 
 const CategoryCreate = () => {
   const { user } = useSelector(state => ({ ...state }));
@@ -17,7 +18,7 @@ const CategoryCreate = () => {
   const [ categories, setCategories ] = useState([]); 
   
   useEffect(() => {
-    loadCategories()
+    loadCategories();
   },[]);
 
   const loadCategories = () => 
@@ -31,7 +32,8 @@ const CategoryCreate = () => {
     .then(res => {
       setLoading(false);
       setName('');
-      toast.success(`"${res.data.name}" is created`)
+      toast.success(`"${res.data.name}" is created`);
+      loadCategories();
     })
     .catch(err => {
       console.log(err);
@@ -39,20 +41,27 @@ const CategoryCreate = () => {
       if(err.response.status === 400) toast.error(err.response.data)
     })
   }
-  const categoryForm = () => {
-   return <form onSubmit={handleSubmit}>
-     <label htmlFor="">Name</label>
-     <input 
-       type="text"
-       className="form-control"
-       value={name}
-       onChange={(e) => setName(e.target.value)}
-       required
-       autoFocus
-    />
-    <button className='btn btn-outline-primary'>Save</button>
-   </form>
+  
+  const handleRemove = async (slug) => {
+    let answer = window.confirm('Delete?');
+    // console.log(answer, slug);
+    if (answer) {
+      setLoading(true);
+      removeCategory(slug, user.token)
+        .then((res) => {
+          setLoading(false);
+          toast.error(`${res.data.name} deleted`);
+          loadCategories();
+        })
+        .catch((err) => {
+          if(err.response.status === 400) {
+            setLoading(false);
+            toast.error(err.response.data);
+          }
+        })
+    }
   }
+
   return ( 
     <div className='container-fluid'>
       <div className="row">
@@ -61,7 +70,11 @@ const CategoryCreate = () => {
         </div>
         <div className="col">
         {loading ? <h4 className='text-danger'>Loading...</h4> : <h4>Create category</h4>} 
-          {categoryForm()}
+          <CategoryForm 
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
           <hr />
           {/* {JSON.stringify(categories)} */}
           {categories.map((cat) => (
@@ -69,7 +82,7 @@ const CategoryCreate = () => {
              className='alert alert-secondary'
              key={cat._id}>
              {cat.name} 
-             <span className='btn btn-sm float-right'>
+             <span onClick={() => handleRemove(cat.slug)} className='btn btn-sm float-right'>
                 <DeleteOutlined  className='text-danger'/>
               </span> 
               <Link to={`/admin/category/${cat.slug}`}>

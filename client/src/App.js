@@ -18,6 +18,7 @@ import Password from './pages/user/Password';
 import CategoryCreate from './pages/admin/category/CategoryCreate';
 import Wishlist from './pages/user/Wishlist';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import CategoryUpdate from './pages/admin/category/CategoryUpdate';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,7 +44,6 @@ const App = () => {
            });
         })
         .catch(err => console.log(err));
-
       }
     });
 
@@ -65,7 +65,12 @@ const App = () => {
         <UserRoute exact path='/user/wishlist' component={Wishlist}></UserRoute>
         <AdminRoute exact path='/admin/dashboard' component={AdminDashboard}></AdminRoute>
         <AdminRoute exact path='/admin/category' component={CategoryCreate}></AdminRoute>
-      
+        <AdminRoute 
+          exact 
+          path='/admin/category/:slug' 
+          component={CategoryUpdate}
+        >
+        </AdminRoute>
       </Switch>
     </>
   )
