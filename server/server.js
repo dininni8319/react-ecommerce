@@ -13,11 +13,18 @@ const authRoutes =require('./routes/auth');
 //app
 const app = express();
 
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect("mongodb://mongo:27017/ecommerce", {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: true
+  // useCreateIndex: true,
+  // useFindAndModify: true
 })
+
+// mongoose.connect(process.env.DATABASE, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useFindAndModify: true
+// })
+
 .then(() => console.log("DB CONNECTED"))
 .catch(err => console.log(`DB CONNECTION ERR ${err}`, err))
 
