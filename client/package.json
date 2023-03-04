@@ -18,7 +18,8 @@
     "react-scripts": "3.4.3",
     "react-toastify": "^6.0.8",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8"
+    "redux-devtools-extension": "^2.13.8",
+    "typewriter-effect": "^2.19.0"
   },
   "scripts": {
     "start": "HOST=localhost react-scripts start",

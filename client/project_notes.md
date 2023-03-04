@@ -40,3 +40,6 @@ Package cloudinary
 
 Package for image resize
 #npm i react-image-file-resizer
+
+#typewriter effect package
+npm i typewriter-effect --force
