@@ -135,10 +135,10 @@ const ProductCreateForm = ({
             )
         })}
       </select>
-      <br />
+    </div>
 
         {showSub && (
-          <>
+          <div>
             <label>Sub Categories</label>
             <Select
               mode="multiple"
@@ -152,9 +152,8 @@ const ProductCreateForm = ({
                 return <Option value={sub._id} key={sub._id}>{sub.name}</Option>
               })}
             </Select>
-          </>
+          </div>
         )}
-    </div>
     <button className="btn btn-outline-info">Save</button>
   </form>
    );
