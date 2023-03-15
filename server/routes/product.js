@@ -12,8 +12,10 @@ const {
   remove, 
   read, 
   update,
-  productsCount
+  productsCount,
+  productStar,
 } = require('../controllers/product');
+const { auth } = require('firebase-admin');
 
 // routes
 router.get('/products/total', productsCount)
@@ -25,4 +27,6 @@ router.put('/product/:slug', authCheck, adminCheck, update);
 
 router.post('/products', list);
 
+//rating
+route.put('/product/:productId', authCheck, productStar)
 module.exports = router;

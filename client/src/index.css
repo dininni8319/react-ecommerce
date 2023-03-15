@@ -13,3 +13,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.slider
+img
+.card-image {
+  height: 450px;
+  object-fit: cover;
+}
