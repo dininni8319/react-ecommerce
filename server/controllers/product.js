@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
   
     res.status(400).json({
       err: err.message,
-    })
+    });
   }
 };
 
@@ -25,7 +25,7 @@ exports.listAll = async (req, res) => {
     .exec();
 
   res.json(products);
-}
+};
 
 exports.remove = async (req, res) => { 
    try {
@@ -36,17 +36,17 @@ exports.remove = async (req, res) => {
     
    } catch (err) {
      console.log(err);
-     return res.status(400).send('Product delete failed')
+     return res.status(400).send('Product delete failed');
    }
 };
 
 exports.read = async (req, res) => {
-  const product = await Product.findOne({ slug: req.params.slug})
+  const product = await Product.findOne({ slug: req.params.slug })
    .populate('category')
    .populate('subs')
    .exec();
 
-  res.json(product)
+  res.json(product);
 };
 
 exports.update = async (req, res) => {
@@ -69,19 +69,45 @@ exports.update = async (req, res) => {
   }
 };
 
+// exports.list = async (req, res) => {
+//   try {
+//     //createAT/updatedAt, desc/asc, 3
+//     const { sort, order, limit } = req.body;
+//     const products = await Product.find({})
+//       .populate('category')
+//       .populate('subs')
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+//     res.json(products);
+//   } catch (error) {
+//     console.log(err);
+//   }
+// }
+
+// WITH PAGINATION
 exports.list = async (req, res) => {
+  // console.log(req.body);
   try {
-    //createAT/updatedAt, desc/asc, 3
-    const { sort, order, limit } = req.body;
+    const { sort, order, page } = req.body;
+    const currentPage = page || 1;
+    const perPage = 3; //3
+
     const products = await Product.find({})
+      .skip((currentPage -1) * perPage)
       .populate('category')
       .populate('subs')
       .sort([[sort, order]])
-      .limit(limit)
+      .limit(perPage)
       .exec();
 
     res.json(products);
   } catch (error) {
-    console.log(err);
+    console.log(error);
   }
-}
+};
+
+exports.productsCount = async (req, res) => {
+  let total = await Product.find({}).estimatedDocumentCount().exec();
+  res.json(total);
+};
