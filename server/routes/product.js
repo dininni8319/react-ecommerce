@@ -14,6 +14,7 @@ const {
   update,
   productsCount,
   productStar,
+  listRelated,
 } = require('../controllers/product');
 const { auth } = require('firebase-admin');
 
@@ -27,6 +28,7 @@ router.put('/product/:slug', authCheck, adminCheck, update);
 
 router.post('/products', list);
 
+router.get('/product/related/:productId', listRelated);
 //rating
 router.put('/product/star/:productId', authCheck, productStar)
 module.exports = router;
