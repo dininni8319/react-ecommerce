@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
-const user = require('../models/user');
+const User = require('../models/user');
 
 exports.create = async (req, res) => {
   try {
@@ -88,7 +88,6 @@ exports.update = async (req, res) => {
 
 // WITH PAGINATION
 exports.list = async (req, res) => {
-  // console.log(req.body);
   try {
     const { sort, order, page } = req.body;
     const currentPage = page || 1;
@@ -115,31 +114,36 @@ exports.productsCount = async (req, res) => {
 
 exports.productStar = async (req, res) => {
   const product = await Product.findById(req.params.productId).exec();
-  const user = await User.findOne({ email: req.user.email }).exec()
+  const user = await User.findOne({ email: req.user.email }).exec();
   const { star } = req.body;
 
-  // who is updating
-  // check the currently logged in user have already rating to this product?
-  let existingRatingObj = pruduct.ratings.find(
-    (elem) => {elem.postedBy.toString() === user._id.toString()}
+  // who is updating?
+  // check if currently logged in user have already added rating to this product?
+  let existingRatingObject = product.ratings.find(
+    (ele) => ele.postedBy.toString() === user._id.toString()
   );
-  
-  // if user havent left rating yet, push it
-  // if user have already left a rating, update it 
-  if (existingRatingObj === undefined) {
-    let ratingAdded = await Product.findByIdAndUpdatedBy(product_id, {
-      $push: { ratings: {
-        star,
-        postedBy: user._id
-      }}
-    },
-    { new: true }
+
+  // if user haven't left rating yet, push it
+  if (existingRatingObject === undefined) {
+    let ratingAdded = await Product.findByIdAndUpdate(
+      product._id,
+      {
+        $push: { ratings: { star, postedBy: user._id } },
+      },
+      { new: true }
     ).exec();
-    console.log('rating added', ratingAdded);
-    res.json(ratingAdded)
+    console.log("ratingAdded", ratingAdded);
+    res.json(ratingAdded);
   } else {
+    // if user have already left rating, update it
     const ratingUpdated = await Product.updateOne(
-      {ratings: { $elemMatch: }}
-    )
+      {
+        ratings: { $elemMatch: existingRatingObject },
+      },
+      { $set: { "ratings.$.star": star } },
+      { new: true }
+    ).exec();
+    console.log("ratingUpdated", ratingUpdated);
+    res.json(ratingUpdated);
   }
-}
+};

@@ -12,19 +12,32 @@ const Login = ({ history }) => {
   const [ password, setPassword ] = useState('');
   const [ loading, setLoading ] = useState(false);
   let dispatch = useDispatch();
+  
   const { user } = useSelector(state => ({ ...state }));
 
-  const roleBasedRedirect = (res) => {
-    if (res.data.role === 'admin') {
-      history.push('/admin/dashboard');
+  useEffect(() => {
+    let intended = history.location.state;
+    if (intended) {
+      return;
     } else {
-      history.push('/user/history');
+      if (user && user.token) history.push('/');
+    }
+  },[user, history]);
+
+  const roleBasedRedirect = (res) => {
+    // check if intended
+    let intended = history.location.state;
+
+    if (intended) {
+      history.push(intended.from);
+    } else {
+      if (res.data.role === 'admin') {
+        history.push('/admin/dashboard');
+      } else {
+        history.push('/user/history');
+      }
     }
   };
-
-  useEffect(() => {
-    if (user && user.token) history.push('/');
-  },[user, history])
 
   const handleSubmit = async (e) => {
     //prevent browser from reload

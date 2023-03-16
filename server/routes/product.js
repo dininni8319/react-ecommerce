@@ -28,5 +28,5 @@ router.put('/product/:slug', authCheck, adminCheck, update);
 router.post('/products', list);
 
 //rating
-route.put('/product/:productId', authCheck, productStar)
+router.put('/product/star/:productId', authCheck, productStar)
 module.exports = router;
