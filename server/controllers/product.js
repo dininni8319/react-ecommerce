@@ -165,6 +165,49 @@ exports.listRelated = async (req, res) => {
    res.json(related);
 };
 
-exports.searchFilters = async (req, res) => {
+//SEARCH FILTER 
+const handleQuery = async (req, res, query) => {
+  // $text --> find the product based on text,
+  // enable first text search in the product model,
+  // also know as 'text based search'
+  const products = await Product.find({ $text: { $search: query }})
+  .populate('category', '_id name')
+  .populate('subs', '_id name')
+  .populate('postedBy', '_id name')
+  .exec();
   
+  res.json(products);
+};
+
+const handlePrice = async (req, res, price) => {
+  try {
+    // $gte greater than , $lte less than  
+    let products = await Product.find({
+      price: {
+        $gte: price[0],
+        $lte: price[1],
+      },
+    })
+    .populate('category', '_id name')
+    .populate('subs', '_id name')
+    .populate('postedBy', '_id name')
+    .exec();
+
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
 }
+exports.searchFilters = async (req, res) => {
+   const { query, price } = req.body;
+
+   if (query) {
+     console.log(query, 'QUERY');
+     await handleQuery(req, res, query);
+   }
+
+   if (price !== undefined) {
+      console.log('price --->', price);
+      await handlePrice(req, res, price);
+   }
+};
