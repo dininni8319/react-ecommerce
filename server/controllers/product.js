@@ -1,6 +1,11 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
 const User = require('../models/user');
+const {
+  handleQuery,
+  handlePrice,
+  handleCategory,
+} = require('../services/product');
 
 exports.create = async (req, res) => {
   try {
@@ -149,7 +154,7 @@ exports.productStar = async (req, res) => {
 };
 
 exports.listRelated = async (req, res) => {
-   console.log(req.params.productId);
+  //  console.log(req.params.productId);
   const product = await Product.findById(req.params.productId).exec();
    // get the product not including the current one
    const related = await Product.find({
@@ -165,41 +170,8 @@ exports.listRelated = async (req, res) => {
    res.json(related);
 };
 
-//SEARCH FILTER 
-const handleQuery = async (req, res, query) => {
-  // $text --> find the product based on text,
-  // enable first text search in the product model,
-  // also know as 'text based search'
-  const products = await Product.find({ $text: { $search: query }})
-  .populate('category', '_id name')
-  .populate('subs', '_id name')
-  .populate('postedBy', '_id name')
-  .exec();
-  
-  res.json(products);
-};
-
-const handlePrice = async (req, res, price) => {
-  try {
-    // $gte greater than , $lte less than  
-    let products = await Product.find({
-      price: {
-        $gte: price[0],
-        $lte: price[1],
-      },
-    })
-    .populate('category', '_id name')
-    .populate('subs', '_id name')
-    .populate('postedBy', '_id name')
-    .exec();
-
-    res.json(products);
-  } catch (err) {
-    console.log(err);
-  }
-}
 exports.searchFilters = async (req, res) => {
-   const { query, price } = req.body;
+   const { query, price, category } = req.body;
 
    if (query) {
      console.log(query, 'QUERY');
@@ -209,5 +181,10 @@ exports.searchFilters = async (req, res) => {
    if (price !== undefined) {
       console.log('price --->', price);
       await handlePrice(req, res, price);
+   }
+
+   if(category) {
+     console.log('category  ----> ', category);
+     await handleCategory(req,res, category);
    }
 };

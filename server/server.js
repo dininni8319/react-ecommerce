@@ -8,7 +8,7 @@ const cors = require('cors');
 const { readdirSync } = require('fs'); //access to the file system
 require('dotenv').config();
 // import routes
-const authRoutes =require('./routes/auth');
+const authRoutes = require('./routes/auth');
 
 //app
 const app = express();
