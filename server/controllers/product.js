@@ -164,3 +164,7 @@ exports.listRelated = async (req, res) => {
   
    res.json(related);
 };
+
+exports.searchFilters = async (req, res) => {
+  
+}
