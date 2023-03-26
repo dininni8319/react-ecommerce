@@ -23,5 +23,7 @@ prod: ## to clear the cache
 	@echo "run prod"
 	@cd client && npm run build
 	@cd server && npm run build
+runDev:
+	@docker-compose up
 
 

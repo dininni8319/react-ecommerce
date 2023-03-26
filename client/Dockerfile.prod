@@ -9,6 +9,6 @@ RUN yarn install
 
 COPY . .
 
-EXPOSE 3000
+RUN yarn build 
 
-CMD [ "yarn", "start" ]
+### Copy into a secondary Caddy stage
