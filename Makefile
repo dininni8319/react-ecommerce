@@ -1,29 +1,21 @@
-include ./server/.env
-export
-# target: 
-#     @echo "test0"
-#     @echo "test1"
-help: ## serve for development
-	@echo "Usage: make [options] [target] ..."; \
-	echo "Targets:"; \
-	fgrep -h '##' Makefile | awk -F'##|: ' '{printf "%40s %s\n", $$1, $$3}
-	' | fgrep -v fgrep';
+build-dev: 
+	cd client && $(MAKE) build-dev
+	cd server && $(MAKE) build
 
-dev: ## serve for development
-	@echo "starting Dev enviroment"
-	@cd client && npm start 
-	@cd server && npm start
+run-dev:
+	@docker-compose -f docker-compose-dev.yml
 
-install: ## performs initial setup
-	@echo "Installing libraries"
-	@cd server && npm install 
-	@cd client && npm install
+### Local ( prod config)
+build-local: 
+	cd client && $(MAKE) build-local
+	cd server && $(MAKE) build
 
-prod: ## to clear the cache
-	@echo "run prod"
-	@cd client && npm run build
-	@cd server && npm run build
-runDev:
-	@docker-compose up
+run-local:
+	docker-compose up
 
+### PROD
+build-local: 
+	cd client && $(MAKE) build-production
+	cd server && $(MAKE) build
 
+run-production:

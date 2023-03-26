@@ -1,3 +1,4 @@
+### first stage
 FROM node:14-slim
 
 WORKDIR /usr/src/app
@@ -12,3 +13,6 @@ COPY . .
 RUN yarn build 
 
 ### Copy into a secondary Caddy stage
+
+## second stage
+FROM 2.1.1-alpine

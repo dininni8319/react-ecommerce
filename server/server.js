@@ -8,15 +8,14 @@ const cors = require('cors');
 const { readdirSync } = require('fs'); //access to the file system
 require('dotenv').config();
 // import routes
-const authRoutes =require('./routes/auth');
+const authRoutes = require('./routes/auth');
 
 //app
 const app = express();
+const connectionString = process.env.MONGO_URI;
 
-mongoose.connect("mongodb://mongo:27017/ecommerce", {
+mongoose.connect(connectionString, {
   useNewUrlParser: true,
-  // useCreateIndex: true,
-  // useFindAndModify: true
 })
 
 // mongoose.connect(process.env.DATABASE, {
@@ -41,7 +40,6 @@ readdirSync('./routes').map((r) =>
   app.use("/api", require("./routes/" + r))
 );
 
-//port 
 const port = process.env.PORT || 8000;
 //this method takes the as an argument, second arg takes a callback
 app.listen(port, () => console.log(`Server is running on the port ${port}`));
