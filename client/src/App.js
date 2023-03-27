@@ -28,6 +28,7 @@ import Product from './pages/Product';
 import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Shop from './pages/Shop';
+import Cart from './pages/Cart';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -98,6 +99,7 @@ const App = () => {
         <Route exact path='/category/:slug' component={CategoryHome}></Route>
         <Route exact path='/sub/:slug' component={SubHome}></Route>
         <Route exact path='/shop' component={Shop}></Route>
+        <Route exact path='/cart' component={Cart}></Route>
       </Switch>
     </>
   )
