@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ProductCardInCheckout from '../components/cards/ProductCardInCheckout';
 
 const Cart = () => {
   const { cart, user } = useSelector(state => ({ ...state }))
@@ -16,6 +17,24 @@ const Cart = () => {
 
   };
 
+  const showCartItems = () => (
+    <table className='table table-bordered'>
+      <thead className='thead-light'>
+          <th scope='col'>Image</th>
+          <th scope='col'>Title</th>
+          <th scope='col'>Price</th>
+          <th scope='col'>Brand</th>
+          <th scope='col'>Color</th>
+          <th scope='col'>Count</th>
+          <th scope='col'>Shipping</th>
+          <th scope='col'>Remove</th>
+      </thead>
+
+       {cart.map((p) => (
+         <ProductCardInCheckout key={p._id} prod={p} />
+       ))}
+    </table>
+  )
   return ( 
     <div className='container-fluid'>
       <div className="row">
@@ -26,7 +45,7 @@ const Cart = () => {
             No product in cart. <Link to='/shop'>Continue Shopping.</Link>
           </p>
           ): (
-            'show cart items'
+           showCartItems()
           )}
         </div>
         <div className="col-md-4">
@@ -50,6 +69,7 @@ const Cart = () => {
                 Proceed to Checkout
               </button>
             ) : (
+              // redirect not working, I need to look at it closer
               <button className='btn btn-sm btn-primary mt-2'>
                 <Link to={{
                   pathname: '/login',
