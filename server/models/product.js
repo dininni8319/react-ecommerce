@@ -47,15 +47,15 @@ const productSchema = new mongoose.Schema({
     },
     shipping: {
       type: String,
-      enum: ['YES', 'NO'] // value for shipping has to be one of this values
+      enum: ["YES", "NO"] // value for shipping has to be one of this values
     },
     color: {
       type: String,
-      enum: ['Black', "Brown", 'Silver', "White", "Blue"],
+      enum: ["Black", "Brown", "Silver", "White", "Blue"],
     },
     brand: {
       type: String,
-      enum: ['Apple', "Samsung", 'Microsoft', "Lenovo", "ASUS"],
+      enum: ["Apple", "Samsung", "Microsoft", "Lenovo", "ASUS"],
     },
     ratings: [
       {
