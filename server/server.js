@@ -12,7 +12,7 @@ const authRoutes = require('./routes/auth');
 
 //app
 const app = express();
-const connectionString = process.env.MONGO_URI;
+const connectionString = process.env.DATABASE;
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,

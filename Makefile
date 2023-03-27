@@ -3,7 +3,7 @@ build-dev:
 	cd server && $(MAKE) build
 
 run-dev:
-	@docker-compose -f docker-compose-dev.yml
+	@docker-compose -f docker-compose.dev.yml up
 
 ### Local ( prod config)
 build-local: 
@@ -18,4 +18,4 @@ build-local:
 	cd client && $(MAKE) build-production
 	cd server && $(MAKE) build
 
-run-production:
+# run-production:
