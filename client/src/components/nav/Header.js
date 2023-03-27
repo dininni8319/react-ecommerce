@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Badge } from 'antd';
 import { 
   AppstoreOutlined,
   SettingOutlined,
@@ -7,6 +7,7 @@ import {
   UserAddOutlined,
   LogoutOutlined,
   ShoppingOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase';
@@ -23,10 +24,10 @@ const Header = () => {
   const [ current, setCurrent ] = useState('home');
   let dispatch = useDispatch();
   let history = useHistory();
-  let { user } = useSelector((state) => ({...state}))
+  let { user, cart } = useSelector((state) => ({...state}))
   const handleClick = (e) => {
     setCurrent(e.key)
-  }
+  };
 
   const logout = () => {
     firebase.auth().signOut();
@@ -35,7 +36,8 @@ const Header = () => {
        payload: null,
      })
      history.push('/login')
-  }
+  };
+
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       <Item key="home" icon={<AppstoreOutlined />}>
@@ -46,6 +48,14 @@ const Header = () => {
         <Link to='/shop'>Shop</Link>
       </Item>
 
+      <Item key="shop" icon={<ShoppingCartOutlined />}>
+        <Link to='/cart'>
+           <Badge count={cart.length} offset={[9,0]}>
+             Cart
+           </Badge>
+        
+        </Link>
+      </Item>
       <Item className="ml-auto p-1">
         <Search />
       </Item>

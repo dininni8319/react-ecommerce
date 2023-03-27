@@ -29,7 +29,8 @@ const Login = ({ history }) => {
     let intended = history.location.state;
 
     if (intended) {
-      history.push(intended.from);
+      const { from } = intended;
+      history.push(`/${from}`);
     } else {
       if (res.data.role === 'admin') {
         history.push('/admin/dashboard');
