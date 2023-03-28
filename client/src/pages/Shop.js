@@ -31,6 +31,7 @@ const Shop = () => {
       "ASUS"
     ]
   );
+
   const [ brand, setBrand ] = useState('');
   const [colors, setColors ] = useState([
     "Black", 
@@ -44,6 +45,7 @@ const Shop = () => {
   let dispatch = useDispatch();
 
   useEffect(() => {
+      setLoading(true)
       loadAllProducts();
       // fetch categories
       getCategories().then(res => setCategories(res.data));
@@ -72,6 +74,10 @@ const Shop = () => {
     const delayed = setTimeout(() => {
       fetchProducts({query: text});
     }, 400);
+
+    if (!text) {
+      loadAllProducts();
+    }
 
     return () => clearTimeout(delayed);
   }, [text]);
@@ -287,7 +293,8 @@ const Shop = () => {
     setColor("");
     setShipping(e.target.value);
     fetchProducts({ shipping: e.target.value })
-  }
+  };
+  
   return ( 
     <div className='container-fluid'>
       <div className="row">
@@ -386,15 +393,15 @@ const Shop = () => {
            { loading ? (
              <h4 className='text-danger'>Loading...</h4>
            ): (
-            <h4 className='text-danger'>Products...</h4>
+            <h4 className='text-danger'>Products</h4>
            )}
 
            {products.length < 1 && <p>No products found</p>}
            <div className="row">
-             {products.map(prod => {
+             {products && products.map(prod => {
                return (
                  <div key={prod._id} className='col-md-4 pb-5 mt-3'>
-                   <ProductCard product={prod} />
+                  <ProductCard product={prod} />
                  </div>
                )
              })}
