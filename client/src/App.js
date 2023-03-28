@@ -2,6 +2,7 @@ import React,{ useEffect }  from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Switch, Route } from 'react-router-dom';
+import SideDrawer from './components/drawer/SideDrawer';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Home from './pages/Home';
@@ -29,6 +30,7 @@ import CategoryHome from "./pages/category/CategoryHome";
 import SubHome from "./pages/sub/SubHome";
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -62,6 +64,7 @@ const App = () => {
   return (
     <>
       <Header />
+      <SideDrawer />
       {/* This way the toast container wil be available in the entire application */}
       <ToastContainer/>
       <Switch>
@@ -100,6 +103,7 @@ const App = () => {
         <Route exact path='/sub/:slug' component={SubHome}></Route>
         <Route exact path='/shop' component={Shop}></Route>
         <Route exact path='/cart' component={Cart}></Route>
+        <Route exact path='/checkout' component={Checkout}></Route>
       </Switch>
     </>
   )

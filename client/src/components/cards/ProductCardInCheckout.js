@@ -2,13 +2,18 @@ import React from 'react';
 import ModalImage from 'react-modal-image';
 import laptop from '../../images/laptop.png';
 import { useDispatch } from 'react-redux';
+import { toast } from "react-toastify";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  CloseOutlined,
+} from "@ant-design/icons";
 
 const ProductCardInCheckout = ({ prod }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   const dispatch = useDispatch();
-  const handleColorChange = (e) => {
-    
 
+  const handleColorChange = (e) => {
     let cart = [];
 
     if (typeof window !== 'undefined') {
@@ -30,6 +35,57 @@ const ProductCardInCheckout = ({ prod }) => {
     }
   };
   
+  const handleQuantityChange = e => {
+    let count = e.target.value  < 1 ? 1 : e.target.value;
+
+    if(count > prod.quantity) {
+      toast.error(`Max available quantity: ${prod.quantity}`)
+      return;
+    }
+
+    let cart = [];
+    if(typeof window !== 'undefined'){
+      if(localStorage.getItem("cart")){
+        cart = JSON.parse(localStorage.getItem("cart"))
+      }
+
+      cart.map((product, i) => {
+        if (product._id === prod._id) {
+          cart[i].count = count;
+        }
+        
+      });
+      
+      localStorage.setItem('cart', JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      });
+    }
+  };
+
+  const handleRemove = () => {
+    let cart = [];
+
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'))
+      }
+      /// [1,2,3,4,5]
+      cart.map((product, i) => {
+        if (product._id === prod._id) {
+          cart.splice(i, 1)
+        }
+      });
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: cart,
+      })
+    }
+  };
+
   return ( 
      <tbody>
         <tr>
@@ -63,9 +119,25 @@ const ProductCardInCheckout = ({ prod }) => {
                .map((c) => <option key={c} value={c}>{c}</option>)}
           </select>
           </td>
-          <td>{prod.count}</td>
-          <td>Shipping</td>
-          <td>Delete Icon</td>
+          <td className='text-center'>
+            <input 
+              type="number" 
+              className='form-control' 
+              onChange={handleQuantityChange}
+              defaultValue={prod.count}
+            />
+          </td>
+          <td>
+            {prod.shipping === "YES" ? (<CheckCircleOutlined className='text-success' />) : (
+              <CloseCircleOutlined className='text-success' />
+            )}
+          </td>
+          <td className='text-center'>
+            <CloseOutlined 
+              onClick={() => handleRemove(prod._id)} 
+              className='text-danger pointer' 
+            />
+          </td>
 
         </tr>
      </tbody>

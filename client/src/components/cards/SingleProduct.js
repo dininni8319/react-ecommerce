@@ -45,7 +45,13 @@ const SingleProduct = ({ product,  onStarClick, star }) => {
         dispatch({
           type: "ADD_TO_CART",
           payload: unique,
-        })
+        });
+        
+        // show cart items in side srawer
+        dispatch({
+          type: "SET_VISIBLE",
+          payload: true,
+        });
       }
   };
 
