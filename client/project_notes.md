@@ -43,3 +43,5 @@ Package for image resize
 
 #typewriter effect package
 npm i typewriter-effect --force
+
+#npm i react-quill

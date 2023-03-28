@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
     const [ tooltip, setTooltip ] = useState('Click to add');
     const { user, cart } = useSelector(state => ({ ...state }))
     const dispatch = useDispatch();
-
+ 
     const handleAddToCart = () => {
        // create a cart array
        let cart = [];
@@ -50,14 +50,14 @@ const ProductCard = ({ product }) => {
 
     return (
       <>
-          { product && product.ratings && product.ratings.length 
-            ? showAverage(product)
-            : <div className='text-center pt-1 pb-3'>No rating yet</div>
-          }
+        { product && product.ratings && product.ratings.length 
+          ? showAverage(product)
+          : <div className='text-center pt-1 pb-3'>No rating yet</div>
+        }
         <Card
           cover={
             <img 
-            src={images && images.length ? images[0].url :laptop }
+            src={images && images.length ? images[0].url : laptop }
             style={{ height: '150px', objectFit: 'cover' }}
             className='p-1'
             />
@@ -78,8 +78,9 @@ const ProductCard = ({ product }) => {
         >
           <Meta 
             title={`${title} - $${price}`} 
-            description={`${description && description.substring(0,40)}...`}></Meta>
-          
+            description={`${description && description.substring(0,40)}...`}
+          />
+           
         </Card>
       </>
   )
