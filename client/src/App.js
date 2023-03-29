@@ -31,7 +31,8 @@ import SubHome from "./pages/sub/SubHome";
 import Shop from './pages/Shop';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-
+import CreateCoupon from './pages/admin/coupon/CreateCoupon';
+import Payment from './pages/Payment';
 const App = () => {
   const dispatch = useDispatch();
   
@@ -76,6 +77,7 @@ const App = () => {
         <UserRoute exact path='/user/history' component={History}></UserRoute>
         <UserRoute exact path='/user/password' component={Password}></UserRoute>
         <UserRoute exact path='/user/wishlist' component={Wishlist}></UserRoute>
+        <UserRoute exact path='/payment' component={Payment}></UserRoute>
         <AdminRoute exact path='/admin/dashboard' component={AdminDashboard}></AdminRoute>
         <AdminRoute exact path='/admin/category' component={CategoryCreate}></AdminRoute>
         <AdminRoute exact path='/admin/sub' component={SubCreate}></AdminRoute>
@@ -92,6 +94,7 @@ const App = () => {
         >
         </AdminRoute>
         <AdminRoute exact path='/admin/product' component={ProductCreate}></AdminRoute>
+        
         <AdminRoute 
           exact 
           path='/admin/product/:slug' 
@@ -104,6 +107,7 @@ const App = () => {
         <Route exact path='/shop' component={Shop}></Route>
         <Route exact path='/cart' component={Cart}></Route>
         <Route exact path='/checkout' component={Checkout}></Route>
+        <AdminRoute exact path='/admin/coupon' component={CreateCoupon}></AdminRoute>
       </Switch>
     </>
   )
