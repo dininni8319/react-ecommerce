@@ -12,7 +12,7 @@ const {
 } = require('../controllers/user');
 
 //order controller
-const { createOrder } = require('../controllers/order');
+const { createOrder, orders } = require('../controllers/order');
 
 router.post("/user/cart", authCheck, userCart)
 router.get("/user/cart", authCheck, getUserCart); //get cart 
@@ -22,6 +22,8 @@ router.post("/user/address", authCheck, saveAddress); // empty cart
 router.post('/user/cart/coupon', authCheck, applyCouponToUserCart)
 
 router.post('/user/order', authCheck, createOrder);
+
+router.get("/user/orders", authCheck, orders)
 //ruote
 //express is a request response handler
 // router.get('/user', (req, res) => {

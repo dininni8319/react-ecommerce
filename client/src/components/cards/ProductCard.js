@@ -11,12 +11,15 @@ const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
     const { images, title, description, slug, price } = product;
-    const [ tooltip, setTooltip ] = useState('Click to add');
+    const initial = product.quantity < 1 ? "Out of stock" : "Click to add"
+    const [ tooltip, setTooltip ] = useState(initial);
     const { user, cart } = useSelector(state => ({ ...state }))
     const dispatch = useDispatch();
  
     const handleAddToCart = () => {
        // create a cart array
+       if (product.quantity < 1) return;
+
        let cart = [];
 
        if (typeof window !== 'undefined') {
@@ -68,10 +71,10 @@ const ProductCard = ({ product }) => {
               <EyeOutlined className="text-warning" /> <br/> View Product
             </Link>,
            <Tooltip title={tooltip}>
-              <a onClick={handleAddToCart}>
+              <a disabled={product.quantity < 1} onClick={handleAddToCart} >
                 <ShoppingCartOutlined 
                   className="text-danger" 
-                /> <br/> Add Product
+                /> <br/> { product.quantity < 1 ? "Out of stock" : "Add Product" }
               </a>
            </Tooltip>,
           ]}
