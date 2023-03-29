@@ -1,3 +1,5 @@
+import { StyleSheet } from '@react-pdf/renderer';
+
 export const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
