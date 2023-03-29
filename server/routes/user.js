@@ -11,6 +11,9 @@ const {
   applyCouponToUserCart,
 } = require('../controllers/user');
 
+//order controller
+const { createOrder } = require('../controllers/order');
+
 router.post("/user/cart", authCheck, userCart)
 router.get("/user/cart", authCheck, getUserCart); //get cart 
 router.delete("/user/cart", authCheck, emptyCart); // empty cart 
@@ -18,6 +21,7 @@ router.post("/user/address", authCheck, saveAddress); // empty cart
 //coupon
 router.post('/user/cart/coupon', authCheck, applyCouponToUserCart)
 
+router.post('/user/order', authCheck, createOrder);
 //ruote
 //express is a request response handler
 // router.get('/user', (req, res) => {
