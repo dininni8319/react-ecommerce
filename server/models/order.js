@@ -19,10 +19,10 @@ const orderSchema = new mongoose.Schema({
     default: "Not Processed",
     enum: [
       "Not Processed",
-      "processing",
+      "Processing",
       "Dispatched",
       "Cancelled",
-      "Complited"
+      "Completed"
     ],
   },
   orderdBy: {

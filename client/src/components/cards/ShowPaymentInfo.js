@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ShowPaymentInfo = ({ order }) => (
+const ShowPaymentInfo = ({ order, showStatus = true }) => (
     <div>
         <p>
         <span>Order Id: {order.paymentIntent.id}</span>{" / "}
@@ -13,8 +13,11 @@ const ShowPaymentInfo = ({ order }) => (
         <span>Payment: {order.paymentIntent.status.toUpperCase()}</span>{" / "}
         <span>Ordered on: 
           {new Date(order.paymentIntent.created * 1000).toLocaleString()}
-        </span>{" / "}
-        <span className='badge bg-primary text-white'>STATUS: {order.orderStatus}</span>{" / "}
+        </span>
+        {" / "}
+        <br />
+        {showStatus && (
+          <span className='badge bg-primary text-white'>STATUS: {order.orderStatus}</span>)}{" / "}
         </p>
     </div>
 );
