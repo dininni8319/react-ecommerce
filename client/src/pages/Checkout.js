@@ -5,6 +5,7 @@ import {
   emptyUserCart,
   saveUserAddress,
   applyCoupon,
+  createCashOrderForUser,
 } from '../functions/user';
 import { toast } from 'react-toastify';
 import ReactQuill from 'react-quill';
@@ -12,7 +13,8 @@ import 'react-quill/dist/quill.snow.css';
 
 const Checkout = ({ history }) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state}));
+  const { user, COD } = useSelector((state) => ({ ...state}));
+  const couponTrueOrFalse = useSelector((state) => state.coupon);
   const [ products, setProducts ] = useState([]);
   const [ total, setTotal ] = useState(0);
   const [ address, setAddress ] = useState('');
@@ -42,6 +44,17 @@ const Checkout = ({ history }) => {
       payload: []
     });
 
+    // remove coupon from redux 
+    dispatch({
+      type: "COUPON_APPLIED",
+      payload: false
+    });
+
+     //empy COD from redux 
+     dispatch({
+      type: "COD",
+      payload: false
+    });
     // remove from backend
     emptyUserCart(user.token)
       .then(res => {
@@ -50,7 +63,7 @@ const Checkout = ({ history }) => {
         setTotalAfterDiscount(0)
         setCoupon('');
         toast.success("Cart is empty. Continue shopping")
-    })
+    });
   };
 
   const saveAddreessToDb = () => {
@@ -64,15 +77,15 @@ const Checkout = ({ history }) => {
   };
 
   const showAddress = () => (
-      <>
-        <ReactQuill 
-            theme='snow'
-            value={address}
-            onChange={setAddress}
-        />
-        <button className="btn btn-primary" onClick={saveAddreessToDb}>Save</button>
-      </>
-    );
+    <>
+      <ReactQuill 
+          theme='snow'
+          value={address}
+          onChange={setAddress}
+      />
+      <button className="btn btn-primary" onClick={saveAddreessToDb}>Save</button>
+    </>
+  );
 
   const showProductSummary = () => 
     products && products.map((p,i) => (
@@ -125,6 +138,31 @@ const Checkout = ({ history }) => {
     </>
   );
   
+  const createCashOrder = () => {
+    createCashOrderForUser(user.token, COD, couponTrueOrFalse).then(res => {
+      console.log('USER CASH ORDER CREATED RES', res);
+      // empy cart form redux, localstorage, rest COD,
+      if (res.data.ok) {
+        if (typeof window !==  'undefined') {
+          // remove from localStorage
+          localStorage.removeItem("cart");
+        }
+        // remove from redux
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: []
+        });
+    
+        // remove from backend
+        emptyUserCart(user.token)
+        
+        setTimeout(() => {
+          history.push('/user/history')
+        },1000)
+      } 
+    })
+  };
+
   return ( 
     <div className='row'>
       <div className="col-md-6">
@@ -157,12 +195,21 @@ const Checkout = ({ history }) => {
 
           <div className='row'>
             <div className="col-md-6">
-              <button 
-                disabled={!addressSaved || !products.length}
-                onClick={() => history.push('/payment')}
-                className="btn btn-primary">
-                Place Order
-              </button>
+             { COD ? (
+                <button 
+                  disabled={!addressSaved || !products.length}
+                  onClick={createCashOrder}
+                  className="btn btn-primary">
+                  Place Order
+                </button>
+             ) : (
+                <button 
+                  disabled={!addressSaved || !products.length}
+                  onClick={() => history.push('/payment')}
+                  className="btn btn-primary">
+                  Place Order
+                </button>
+             )}
             </div>
             <div className="col-md-6">
                 <button 

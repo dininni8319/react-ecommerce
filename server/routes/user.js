@@ -12,7 +12,11 @@ const {
 } = require('../controllers/user');
 
 //order controller
-const { createOrder, orders } = require('../controllers/order');
+const { 
+  orders,
+  createOrder,
+  createCashOrder,
+} = require('../controllers/order');
 
 //wishlist controller
 const { 
@@ -28,14 +32,15 @@ router.post("/user/address", authCheck, saveAddress); // empty cart
 //coupon
 router.post('/user/cart/coupon', authCheck, applyCouponToUserCart)
 
-router.post('/user/order', authCheck, createOrder);
-
+router.post('/user/order', authCheck, createOrder); // stripe
+router.post('/user/cash-order', authCheck, createCashOrder); // cod
 router.get("/user/orders", authCheck, orders);
 
 // wishlist
 router.post('/user/wishlist', authCheck, addToWishList);
 router.get('/user/wishlist', authCheck, wishlist);
 router.put('/user/wishlist/:productId', authCheck, removeFromWishList);
+
 
 
 //ruote

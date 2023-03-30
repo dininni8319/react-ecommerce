@@ -11,14 +11,15 @@ import ShowOrderInTable from '../../components/order/OrderTable';
 const History = () => {
   const [orders, setOrders] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
-
+  const clone = Array.from(orders).reverse();
+  
   useEffect(() => {
     loadUserOrders();
   }, []);
 
   const loadUserOrders = () =>
     getUserOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
+      // console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
 
@@ -33,7 +34,7 @@ const History = () => {
   );
 
   const showEachOrders = () =>
-    orders.map((order, i) => (
+    clone.map((order, i) => (
       <div key={i} className="m-5 p-3 card">
         <ShowPaymentInfo order={order} />
         <ShowOrderInTable order={order} />

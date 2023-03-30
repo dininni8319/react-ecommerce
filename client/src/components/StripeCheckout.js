@@ -8,7 +8,7 @@ import { DollarOutlined, CheckOutlined } from '@ant-design/icons';
 import laptop from '../images/laptop.png';
 import { createOrder, emptyUserCart } from '../functions/user';
 
-const StripeCheckout = ({ history}) => {
+const StripeCheckout = ({ history }) => {
   const dispatch = useDispatch();
   const { user, coupon } = useSelector((state) => ({...state}));
   
