@@ -5,8 +5,9 @@ import ProductCardInCheckout from '../components/cards/ProductCardInCheckout';
 import { userCart } from '../functions/user';
 
 const Cart = ({ history }) => {
-  const { cart, user } = useSelector(state => ({ ...state }))
-  
+  const { cart, user, COD } = useSelector(state => ({ ...state }))
+
+  const dispatch = useDispatch();
   // [1,2] 100 + 200 = 300
   const getTotal = () => {
       return cart.reduce((currentValue, nextValue) => {
@@ -20,8 +21,8 @@ const Cart = ({ history }) => {
       .then(res => {
         console.log('CART POST RES', res);
         if (res.data.ok) history.push('/checkout');
-      }).catch((err) => console.log('cart save err', err))
-    history.push('/checkout');
+      })
+      .catch((err) => console.log('cart save err', err))
   };
 
   const showCartItems = () => (
@@ -41,7 +42,21 @@ const Cart = ({ history }) => {
          <ProductCardInCheckout key={p._id} prod={p} />
        ))}
     </table>
-  )
+  );
+
+  const saveCashOrderToDB = () => {
+    dispatch({
+      type:'COD',
+      payload: true,
+    });
+
+    userCart(cart, user.token)
+      .then(res => {
+        console.log('CART POST RES', res);
+        if (res.data.ok) history.push('/checkout');
+      }).catch((err) => console.log('cart save err', err));
+  };
+
   return ( 
     <div className='container-fluid'>
       <div className="row">
@@ -69,12 +84,22 @@ const Cart = ({ history }) => {
           <hr />
           {
             user ? (
-              <button 
-                onClick={saveOrderToDB} 
-                disabled={!cart.length}
-                className='btn btn-sm btn-primary mt-2'>
-                Proceed to Checkout
-              </button>
+              <>
+                <button 
+                  onClick={saveOrderToDB} 
+                  disabled={!cart.length}
+                  className='btn btn-sm btn-primary mt-2'>
+                  Proceed to Checkout
+                </button>
+                <br />  
+                <button 
+                  onClick={saveCashOrderToDB} 
+                  disabled={!cart.length}
+                  className='btn btn-sm btn-warning mt-2'>
+                  Pay Cash on delivery
+                </button>
+               
+              </>
             ) : (
               // redirect not working, I need to look at it closer
               <button className='btn btn-sm btn-primary mt-2'>

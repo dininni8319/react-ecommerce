@@ -60,6 +60,8 @@ exports.getUserCart = async (req, res) => {
     .populate("products.product", "_id title price totalAfterDiscount")
     .exec();
 
+  console.log(cart, 'TESTING THE CART PRODUCTS');
+
   const { products, cartTotal, totalAfterDiscount } = cart;
   res.json({ products, cartTotal, totalAfterDiscount });
 };

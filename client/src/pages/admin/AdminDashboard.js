@@ -8,14 +8,14 @@ import Orders from '../../components/order/Orders';
 const AdminDashboard = () => {
   const [ orders, setOrders ] = useState([]);
   const { user } = useSelector((state) => ({...state}));
-
+  
   useEffect(() => {
     loadOrders();
   },[]);
 
   const loadOrders =() => {
     getOrders(user.token).then(res => {
-      console.log(JSON.stringify(res.data, null, 4));
+      // console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
   };
