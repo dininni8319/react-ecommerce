@@ -30,10 +30,6 @@ Backend
 
 Axios installation
 #npm i axios
-<!-- mongoose
-  .connect(process.env.DATABASE, {})
-  .then(() => console.log("DB connected"))
-  .catch((err) => console.log("DB Error => ", err)); -->
 
 Help to create slugs
 #npm i slugify
@@ -76,12 +72,11 @@ I will share GitLab and Github accounts upon request.</p>
 <br/>
 <br/>
 
-<b>linkedIn Profile: <a href="https://www.linkedin.com/in/salvatoredininni/" >https://www.linkedin.com/in/salvatoredininni/ </a></b>
-
+<strong>More details...<strong>
+<b>LinkedIn Profile: <a href="https://www.linkedin.com/in/salvatoredininni/" >https://www.linkedin.com/in/salvatoredininni/ </a></b>
 <b>Portfolio Website: <a href="https://salvatore-dininni.com/" >https://salvatore-dininni.com</a></b> 
 
 <h3>My other projects:</h3>
-
 <b>MERN Ecommerce App: <a href="http://ecommerce-mern.salvatore-dininni.com/" >http://ecommerce-mern.salvatore-dininni.com/</a></b> 
 
 <b>Game Streaming App: <a href="https://rehacktor.salvatore-dininni.com/" >https://rehacktor.salvatore-dininni.com/</a></b> 
