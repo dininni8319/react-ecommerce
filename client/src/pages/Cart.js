@@ -38,7 +38,7 @@ const Cart = ({ history }) => {
           <th scope='col'>Remove</th>
       </thead>
 
-       {cart.map((p) => (
+       {cart.length > 0 && cart.map((p) => (
          <ProductCardInCheckout key={p._id} prod={p} />
        ))}
     </table>

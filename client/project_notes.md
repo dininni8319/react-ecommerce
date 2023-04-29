@@ -45,3 +45,5 @@ Package for image resize
 npm i typewriter-effect --force
 
 #npm i react-quill
+
+https://codecontinue.com/article/deploy-react-node-mern-full-stack-app-to-digital-ocean

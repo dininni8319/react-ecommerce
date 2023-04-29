@@ -12,7 +12,7 @@ import {
 const ProductCardInCheckout = ({ prod }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
   const dispatch = useDispatch();
-
+  //  console.log(prod,'TESTING THE PROD');
   const handleColorChange = (e) => {
     let cart = [];
 
