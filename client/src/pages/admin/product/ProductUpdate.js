@@ -54,7 +54,6 @@ const ProductUpdate = ({ match }) => {
           <AdminNav />
         </div>
         <div className="col-md-10">
-          {JSON.stringify(values)}
           <h4>Product Update</h4>
           <hr />
           <ProductUpdateForm
