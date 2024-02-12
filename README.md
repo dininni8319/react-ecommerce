@@ -80,7 +80,6 @@ Completed Full-Stack Bootcamp with Propulsion Academy based in Zurich, Switzerla
 <b>LinkedIn Profile: <a href="https://www.linkedin.com/in/salvatoredininni/" >https://www.linkedin.com/in/salvatoredininni/ </a></b>
 <br>
 <br>
-I am a passionate and experienced full stack developer with a strong background in web development, specifically focused
 <b>Portfolio Website: <a href="https://salvatore-dininni.com/" >https://salvatore-dininni.com</a></b> 
 
 ### My other projects:
