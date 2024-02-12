@@ -1,4 +1,7 @@
 <h1>Project Title: MERN Stack Ecommerce App</h1>
+<h3>Overview</h3>
+<p>
+Master MERN Stack Web Development building Ultimate E-commerce app with React Redux Ant Design Firebase NodeJs and MongoDB. Main Features are: Login Registration System, Login with email/password and social login (Google) Admin dashboard and order management system, Products CRUD with advance features including categories, sub-categories, multiple image uploads etc, Plenty of advance searching and filtering options, Star rating system, Cart functionality with both backend/frontend implementation, Checkout with stripe for credit card payments, Checkout with cash on delivery (no online payment required), User dashboard with password update, purchase history, Invoice/PDF download etc.</p>
 
 <h3>Packages/Commands</h3>
 #npx create-react-app "name"
@@ -77,14 +80,9 @@ I will share GitLab and Github accounts upon request.</p>
 <b>Portfolio Website: <a href="https://salvatore-dininni.com/" >https://salvatore-dininni.com</a></b> 
 
 <h3>My other projects:</h3>
-<b>MERN Ecommerce App: <a href="http://ecommerce-mern.salvatore-dininni.com/" >http://ecommerce-mern.salvatore-dininni.com/</a></b> 
 
-<b>Game Streaming App: <a href="https://rehacktor.salvatore-dininni.com/" >https://rehacktor.salvatore-dininni.com/</a></b> 
+<b>Game Streaming React / Laravel App: <a href="https://rehacktor.vercel.app/" >https://rehacktor.vercel.app</a></b> 
+<b>Email Client Angular App: <a href="https://emailclient-henna.vercel.app" >https://emailclient-henna.vercel.app/</a></b> 
 
-<b>Search Bar: <a href="http://github-search.salvatore-dininni.com">http://github-search.salvatore-dininni.com</a></b>
+<b>Search User Github App: <a href="https://github-search-green-five.vercel.app/">https://github-search-green-five.vercel.app/</a></b>
 
-<b>Task App, React and Laravel Stack: <a href="https://task.salvatore-dininni.com">https://task.salvatore-dininni.com</a></b>
-
-<b>Ricorsi App, React and Laravel Stack: <a href="https://ricorsi.salvatore-dininni.com">https://ricorsi.salvatore-dininni.com</a></b>
-
-<b>Search Console, React and Laravel Stack: <a href="https://search-console.salvatore-dininni.com">https://search-console.salvatore-dininni.com</a></b>
